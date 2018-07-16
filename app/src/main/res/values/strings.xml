@@ -4,4 +4,10 @@
     <!--API key for Google Maps -->
     <string name="google_maps_api">AIzaSyBO9MQoDG9o7GjVwMeNNHI2o0B_bs32auc</string>
 
+    <!-- intent -->
+    <string name="marker_id">marker_id</string>place_id
+    <string name="place_info">place_info</string>
+    <string name="place_id">place_id</string>
+    <string name="show_placeinfo">Show Placeinfo</string>
+
 </resources>

@@ -1,10 +1,12 @@
 package com.example.joon.googlemaps.Model;
 
 import android.net.Uri;
+import android.os.Parcel;
+import android.os.Parcelable;
 
 import com.google.android.gms.maps.model.LatLng;
 
-public class PlaceInfo {
+public class PlaceInfo implements Parcelable {
     private String name;
     private String address;
     private String phone_number;
@@ -28,6 +30,29 @@ public class PlaceInfo {
         this.rating = rating;
         this.attribution = attribution;
     }
+
+    protected PlaceInfo(Parcel in) {
+        name = in.readString();
+        address = in.readString();
+        phone_number = in.readString();
+        id = in.readString();
+        websiteUri = in.readParcelable(Uri.class.getClassLoader());
+        latlng = in.readParcelable(LatLng.class.getClassLoader());
+        rating = in.readFloat();
+        attribution = in.readString();
+    }
+
+    public static final Creator<PlaceInfo> CREATOR = new Creator<PlaceInfo>() {
+        @Override
+        public PlaceInfo createFromParcel(Parcel in) {
+            return new PlaceInfo(in);
+        }
+
+        @Override
+        public PlaceInfo[] newArray(int size) {
+            return new PlaceInfo[size];
+        }
+    };
 
     public String getName() {
         return name;
@@ -96,5 +121,26 @@ public class PlaceInfo {
     @Override
     public String toString() {
         return super.toString();
+    }
+
+    /**
+     * make this model parceable to pass to the other fragments
+     * @return
+     */
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(address);
+        dest.writeString(phone_number);
+        dest.writeString(id);
+        dest.writeParcelable(websiteUri, flags);
+        dest.writeParcelable(latlng, flags);
+        dest.writeFloat(rating);
+        dest.writeString(attribution);
     }
 }
